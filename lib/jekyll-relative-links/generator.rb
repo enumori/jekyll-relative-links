@@ -57,7 +57,7 @@ module JekyllRelativeLinks
         next original unless replaceable_link?(link.path)
 
         path = path_from_root(link.path, url_base)
-        url  = url_for_path(path)
+        url  = url_for_path(path, link.path)
         puts original
         puts url
         next original unless url
@@ -98,20 +98,23 @@ module JekyllRelativeLinks
       @markdown_converter ||= site.find_converter_instance(CONVERTER_CLASS)
     end
 
-    def url_for_path(path)
+    def url_for_path(path, relative_path)
       puts '##url_for_path'
       puts path
       path = CGI.unescape(path)
       puts path
       target = potential_targets.find { |p| p.relative_path.sub(%r!\A/!, "") == path }
       
-      t = browser_only?
-      puts 'browser_only'
-      puts t
-      puts 'target'
-      puts target.class
-      puts target&.url
-      relative_url(target.url) if target&.url
+      if browser_only? then
+        is_absolute = relative_path.start_with? "/"
+        if is_absolute then
+          relative_url(target.url) if target&.url
+        else
+          relative_url(target.url[1..-1]) if target&.url
+        end
+      else
+        relative_url(target.url) if target&.url
+      end
     end
 
     def potential_targets
