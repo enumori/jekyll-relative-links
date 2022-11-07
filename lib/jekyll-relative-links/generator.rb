@@ -106,8 +106,8 @@ module JekyllRelativeLinks
       target = potential_targets.find { |p| p.relative_path.sub(%r!\A/!, "") == path }
       
       t = browser_only?
-      puts 'browser_only' t
-
+      puts 'browser_only'
+      puts t
       puts 'target'
       puts target.class
       puts target&.url
