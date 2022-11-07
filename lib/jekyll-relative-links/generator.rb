@@ -104,6 +104,7 @@ module JekyllRelativeLinks
     end
 
     def path_from_root(relative_path, url_base)
+      print relative_path
       is_absolute = relative_path.start_with? "/"
 
       relative_path.sub!(%r!\A/!, "")
