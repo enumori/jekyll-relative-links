@@ -104,16 +104,12 @@ module JekyllRelativeLinks
     end
 
     def path_from_root(relative_path, url_base)
-      print '##path_from_root##'
-      print relative_path
-      print url_base
       is_absolute = relative_path.start_with? "/"
 
       relative_path.sub!(%r!\A/!, "")
       base = is_absolute ? "" : url_base
       absolute_path = File.expand_path(relative_path, base)
       absolute_path.sub(%r!\A#{Regexp.escape(Dir.pwd)}/!, "")
-      print absolute_path
     end
 
     # @param link [Link] A Link object describing the markdown link to make
