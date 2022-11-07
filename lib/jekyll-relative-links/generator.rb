@@ -98,7 +98,8 @@ module JekyllRelativeLinks
     def url_for_path(path, relative_path)
       path = CGI.unescape(path)
       target = potential_targets.find { |p| p.relative_path.sub(%r!\A/!, "") == path }
-      
+      puts 'relative_path'
+      puts relative_path
       if browser_only? then
         is_absolute = relative_path.start_with? "/"
         if is_absolute then
@@ -109,8 +110,7 @@ module JekyllRelativeLinks
           puts 'target.url[1..-1]'
           puts target.url[1..-1]
           puts relative_url(target.url[1..-1])
-
-          relative_url(target.url[1..-1]) if target&.url
+          target.url[1..-1] if target&.url
         end
       else
         puts 'org relative_url(target.url)'
