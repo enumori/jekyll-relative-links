@@ -94,7 +94,10 @@ module JekyllRelativeLinks
     end
 
     def url_for_path(path)
+      puts '##url_for_path'
+      puts path
       path = CGI.unescape(path)
+      puts path
       target = potential_targets.find { |p| p.relative_path.sub(%r!\A/!, "") == path }
       relative_url(target.url) if target&.url
     end
@@ -104,7 +107,7 @@ module JekyllRelativeLinks
     end
 
     def path_from_root(relative_path, url_base)
-      puts 'path_from_root'
+      puts '##path_from_root'
       puts relative_path
       
       is_absolute = relative_path.start_with? "/"
