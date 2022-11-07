@@ -46,6 +46,7 @@ module JekyllRelativeLinks
     end
 
     def replace_relative_links!(document)
+      puts '##replace_relative_links'
       url_base = File.dirname(document.relative_path)
       return document if document.content.nil?
 
@@ -55,6 +56,8 @@ module JekyllRelativeLinks
 
         path = path_from_root(link.path, url_base)
         url  = url_for_path(path)
+        puts original
+        puts url
         next original unless url
 
         link.path = url
