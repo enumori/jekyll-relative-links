@@ -55,8 +55,9 @@ module JekyllRelativeLinks
         link = link_parts(Regexp.last_match)
         next original unless replaceable_link?(link.path)
 
+        org_link_path = link.path;
         path = path_from_root(link.path, url_base)
-        url  = url_for_path(path, link.path)
+        url  = url_for_path(path, org_link_path)
         next original unless url
 
         link.path = url
