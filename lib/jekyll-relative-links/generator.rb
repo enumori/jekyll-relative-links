@@ -18,6 +18,8 @@ module JekyllRelativeLinks
     CONFIG_KEY = "relative_links"
     ENABLED_KEY = "enabled"
     COLLECTIONS_KEY = "collections"
+    BROWSER_ONLY_KEY = "browser_only"
+
     LOG_KEY = "Relative Links:"
 
     safe true
@@ -102,6 +104,7 @@ module JekyllRelativeLinks
       path = CGI.unescape(path)
       puts path
       target = potential_targets.find { |p| p.relative_path.sub(%r!\A/!, "") == path }
+      puts target&.url
       relative_url(target.url) if target&.url
     end
 
@@ -159,6 +162,11 @@ module JekyllRelativeLinks
     def collections?
       option(COLLECTIONS_KEY) == true
     end
+
+	def browser_only?
+      option(BROWSER_ONLY_KEY) == true
+    end
+	
 
     def excluded?(document)
       return false unless option("exclude")
